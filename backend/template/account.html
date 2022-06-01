@@ -1,0 +1,49 @@
+{% extends "layout.html" %}<!-- pour hériter du modèle layout.html -->
+{% block content %}<!-- le conteu de l'interface de la page accout de chaque utilisateur -->
+<div class="content-section">
+    <div class="media">
+
+        <div class="media-body"><!-- retourner username et email de chaque utilisateur  -->
+            <h2 class="account-heading">{{ current_user.username }}</h2>  
+            <p class="text-secondary">{{ current_user.email }}</p>
+        </div>
+    </div>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Account Info</legend>
+            <div class="form-group">
+                {{ form.username.label(class="form-control-label") }}
+
+                {% if form.username.errors %}
+                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                    <span>{{ error }}</span><!-- affichier les messages d erreur y'a un erreur dans le nom de utilisateur   -->
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.username(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span><!-- affichier les messages d erreur dans le cas ou il y'a un erreur dans l email  -->
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+{% endblock content %}
